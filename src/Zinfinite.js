@@ -42,7 +42,8 @@ const photoReducer = (state, action) => {
 export default function Zinfinite() {
 
     const [photos, dispatchPhotos] = useReducer(photoReducer, photoInit)
-    const [lastUpdateCounter, setLastUpdateCounter] = useState(0)
+    const [updatedPhotos, setUpdatedPhotos] = useState(0)
+    const [resetCounter, setResetCounter] = useState(Date.now())
 
     const pageToLoad = useRef(1)
 
@@ -55,22 +56,17 @@ export default function Zinfinite() {
     }
 
     useEffect(() => {
-
         const events = new EventSource(`${url}stream`)
         events.onmessage = (ev) => {
             dispatchPhotos({type: 'update', data: JSON.parse(ev.data)})
         }
-
-        setInterval(() => {
-            setLastUpdateCounter(counter => counter + 1)
-        }, 1000)
-
     }, [])
 
     useEffect(() => {
         if (photos.lastEvent === 'update' && photos.newPhotoCount) {
             pageToLoad.current = Math.ceil((photos.photos.length + 1) / 10)
-            setLastUpdateCounter(0)
+            setUpdatedPhotos(photos.newPhotoCount)
+            setResetCounter(Date.now())
         } else if (photos.lastEvent === 'nextPage') {
             ++pageToLoad.current
             if (!photos.newPhotoCount) fetchNextPage()
@@ -80,10 +76,10 @@ export default function Zinfinite() {
 
     return (
         <>
-            <TopBar totalPhotos={photos.photos.length} recentPhotos={photos.newPhotoCount}/>
+            <TopBar totalPhotos={photos.photos.length} recentPhotos={updatedPhotos}/>
             <Album photos={photos.photos}/>
             <InfiniteScroller currentEntries={photos.photos.length} maxEntries={500} fetchEntries={fetchNextPage}/>
-            <BottomBar counter={lastUpdateCounter}/>
+            <BottomBar reset={resetCounter}/>
         </>
     )
 }
