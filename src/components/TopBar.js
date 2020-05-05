@@ -16,10 +16,10 @@ export default function TopBar(props) {
     return (
         <AppBar position="sticky" className={classes.appBar}>
             <Typography variant={"h6"}>
-                {`Total loaded photos: ${props.totalPhotos}`}
+                Total loaded photos: {props.totalPhotos}
             </Typography>
             <Typography variant={"h6"}>
-                {`Updated recent photos (top): ${props.recentPhotos}`}
+                Updated recent photos (top): {props.recentPhotos}
             </Typography>
         </AppBar>
     )
