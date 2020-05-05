@@ -1,5 +1,5 @@
-import React from "react"
-import PropTypes, {number} from 'prop-types'
+import React, {useEffect, useState} from "react"
+import PropTypes, {any, number} from 'prop-types'
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/core/styles/makeStyles";
@@ -12,17 +12,29 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function BottomBar({counter}) {
+export default function BottomBar({reset}) {
     const classes = useStyles()
-return(
-    <AppBar position={"fixed"} className={classes.timer}>
-        <Typography align={"right"}>
-            {`Last update from server was ${counter} s ago`}
-        </Typography>
-    </AppBar>
-)
+    const [counterClock, setCounterClock] = useState(0)
+
+    useEffect(() => {
+        const intervalID = setInterval(() => {
+            setCounterClock(count => count + 1)
+        }, 1000)
+    }, [])
+
+    useEffect(() => {
+        setCounterClock(0)
+    }, [reset])
+
+    return (
+        <AppBar position={"fixed"} className={classes.timer}>
+            <Typography align={"right"}>
+                Last update from server was {counterClock} s ago
+            </Typography>
+        </AppBar>
+    )
 }
 
 BottomBar.propTypes = {
-    counter: number
+    reset: any
 }
