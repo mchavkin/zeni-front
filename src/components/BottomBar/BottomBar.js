@@ -28,7 +28,7 @@ export default function BottomBar({reset}) {
 
     return (
         <AppBar position={"fixed"} className={classes.timer}>
-            <Typography align={"right"}>
+            <Typography align={"right"} data-testid="stopwatch">
                 Last update from server was {counterClock} s ago
             </Typography>
         </AppBar>

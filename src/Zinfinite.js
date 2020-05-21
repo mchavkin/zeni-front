@@ -1,9 +1,9 @@
 import React, {useEffect, useReducer, useRef, useState} from "react"
 import axios from "axios"
-import TopBar from "./components/TopBar";
-import InfiniteScroller from "./components/InfiniteScroller";
-import BottomBar from "./components/BottomBar";
-import Album from "./components/Album";
+import TopBar from "./components/TopBar/TopBar";
+import InfiniteScroller from "./components/InfiniteScroller/InfiniteScroller";
+import BottomBar from "./components/BottomBar/BottomBar";
+import Album from "./components/Album/Album";
 
 
 const url = 'http://localhost:3300/'
@@ -14,7 +14,8 @@ const photoInit = {
 }
 
 const photoReducer = (state, action) => {
-    const filteredPhotos = action.data.photo.filter(np => !state.photos.some(op => op.id === np.id))
+    const filteredPhotos = action.data.photo
+        .filter(newPhotos => !state.photos.some(oldPhotos => oldPhotos.id === newPhotos.id))
     switch (action.type) {
         case 'update': {
             return (

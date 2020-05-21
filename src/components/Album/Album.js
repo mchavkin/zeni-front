@@ -24,7 +24,7 @@ export default function Album({photos}) {
 return(
     <div className={classes.album}>
         {photos.map(photo =>
-            <Paper className={classes.paper} key={photo.id}>
+            <Paper className={classes.paper} key={photo.id} data-testid="photo-with-description">
                 <Grid container direction={"row"} spacing={2}>
                     <Grid item xs={4} sm={3} md={2}>
                         <img src={photo.url} alt="thumb" className={classes.image}/>

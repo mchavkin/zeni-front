@@ -15,10 +15,10 @@ export default function TopBar(props) {
     const classes = useStyles()
     return (
         <AppBar position="sticky" className={classes.appBar}>
-            <Typography variant={"h6"}>
+            <Typography variant={"h6"} data-testid="totalPhotos">
                 Total loaded photos: {props.totalPhotos}
             </Typography>
-            <Typography variant={"h6"}>
+            <Typography variant={"h6"} data-testid="updatedPhotos">
                 Updated recent photos (top): {props.recentPhotos}
             </Typography>
         </AppBar>

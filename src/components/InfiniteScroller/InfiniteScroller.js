@@ -35,9 +35,9 @@ export default function InfiniteScroller(props) {
 
 
     return (
-        <Paper ref={loadingRef} className={classes.loader}>
+        <Paper ref={loadingRef} className={classes.loader} data-testid="scroller">
             {props.currentEntries < props.maxEntries ?
-                <CircularProgress/>
+                <CircularProgress data-testid="progress"/>
                 :
                 <Typography align={"center"}>
                     {`You have ${props.maxEntries} photos loaded. Enough is enough!`}
