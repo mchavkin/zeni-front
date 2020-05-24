@@ -15,7 +15,6 @@ it("should instantiate IntersectionObserver and connect observation to scrolling
     const observe = jest.fn()
     const unobserve = jest.fn()
 
-
     window.IntersectionObserver = jest.fn(function () {
         this.observe = observe
         this.unobserve = unobserve
